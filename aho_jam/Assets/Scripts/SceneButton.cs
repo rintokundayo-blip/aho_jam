@@ -2,60 +2,90 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class SceneButton : MonoBehaviour
 {
-    [SerializeField] private string targetSceneName; // シーン名を直接指定（ビルド対応）
+    [Header("Scene Settings")]
+    [Tooltip("遷移先のシーン名（Inspectorで直接入力も可能です）")]
+    [SerializeField] private string targetSceneName;
 
-    [SerializeField] private AudioSource audioSource; // SEを鳴らすAudioSource
-    [SerializeField] private AudioClip clickSound;    // 再生する音
+#if UNITY_EDITOR
+    [Tooltip("ドラッグ＆ドロップ用（設定すると自動で上の Scene Name に反映されます）")]
+    [SerializeField] private SceneAsset targetScene;
 
-    // シーン移動しないボタン
+    // Inspectorで SceneAsset を変更した瞬間に自動で targetSceneName を更新・保存する
+    private void OnValidate()
+    {
+        if (targetScene != null)
+        {
+            targetSceneName = targetScene.name;
+        }
+    }
+#endif
+
+    [Header("Sound Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip clickSound;
+
+    // シーン移動しないボタン（SE再生のみ）
     public void PlaySEOnly()
     {
-        if (audioSource && clickSound)
-            audioSource.PlayOneShot(clickSound);
+        PlaySound();
     }
 
     // シーン移動するボタン
     public void LoadTargetScene()
     {
-        if (audioSource && clickSound)
-            audioSource.PlayOneShot(clickSound);
-
+        PlaySound();
         StartCoroutine(LoadSceneCoroutine());
+    }
+
+    private void PlaySound()
+    {
+        if (audioSource != null && clickSound != null)
+        {
+            audioSource.PlayOneShot(clickSound);
+        }
     }
 
     private IEnumerator LoadSceneCoroutine()
     {
-        if (clickSound)
-            yield return new WaitForSeconds(clickSound.length);
+        // SEがある場合は再生終了まで待つ（Time.timeScale=0 でも止まらないよう Realtime を使用）
+        if (clickSound != null)
+        {
+            yield return new WaitForSecondsRealtime(clickSound.length);
+        }
 
-        // シーン遷移
         if (!string.IsNullOrEmpty(targetSceneName))
+        {
             SceneManager.LoadScene(targetSceneName);
+        }
         else
-            Debug.LogWarning("Scene name is not set in SceneButton.");
+        {
+            Debug.LogError($"[{gameObject.name}] シーン名が空です。Inspectorで Scene または Target Scene Name を設定してください。");
+        }
     }
 
     // EXITボタン
     public void ExitGame()
     {
-        if (audioSource && clickSound)
-            audioSource.PlayOneShot(clickSound);
-
+        PlaySound();
         StartCoroutine(QuitGameCoroutine());
     }
 
     private IEnumerator QuitGameCoroutine()
     {
-        if (clickSound)
-            yield return new WaitForSeconds(clickSound.length);
+        if (clickSound != null)
+        {
+            yield return new WaitForSecondsRealtime(clickSound.length);
+        }
 
 #if UNITY_EDITOR
-        // Unityエディターならプレイを止める
-        UnityEditor.EditorApplication.isPlaying = false;
+        EditorApplication.isPlaying = false;
 #else
-        // ビルド後はアプリを終了
         Application.Quit();
 #endif
     }

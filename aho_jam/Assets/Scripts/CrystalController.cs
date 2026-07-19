@@ -20,6 +20,15 @@ public class CrystalController : MonoBehaviour
     private float rubTimer = 0f;
     private const float RubBufferDuration = 0.5f;
 
+    void Awake()
+    {
+        // VSync（垂直同期）を無効化（targetFrameRate を有効にするため）
+        QualitySettings.vSyncCount = 0;
+
+        // ターゲットフレームレートを 60 FPS に固定
+        Application.targetFrameRate = 60;
+    }
+
     void Start()
     {
         rubCount = 0;

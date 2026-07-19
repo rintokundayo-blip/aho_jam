@@ -56,12 +56,12 @@ public class BGMManager : MonoBehaviour
         // duration秒かけて音量を上げる
         for (float t = 0; t < duration; t += Time.deltaTime)
         {
-            bgmSource.volume = Mathf.Lerp(0f, 1f, t / duration);
+            bgmSource.volume = Mathf.Lerp(0f, 0.125f, t / duration);
             yield return null;
         }
 
-        // 最後に音量を1にする
-        bgmSource.volume = 1f;
+        // 最後に音量を指定する
+        bgmSource.volume = 0.125f;
     }
 
     // フェードアウト

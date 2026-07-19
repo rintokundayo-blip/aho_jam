@@ -30,22 +30,22 @@ public class ResultManager : MonoBehaviour
         string rankName = "";
         Sprite targetSprite = null;
 
-        if (rubCount <= 30)
+        if (rubCount <= 60)
         {
             rankName = "シマグニキュウ";
             targetSprite = islandSprite;
         }
-        else if (rubCount <= 40)
+        else if (rubCount <= 70)
         {
             rankName = "タイヘイヨウキュウ";
             targetSprite = pacificSprite;
         }
-        else if (rubCount <= 60)
+        else if (rubCount <= 90)
         {
             rankName = "ホッキョクキュウ";
             targetSprite = arcticSprite;
         }
-        else if (rubCount <= 70)
+        else if (rubCount <= 100)
         {
             rankName = "ウチュウキュウ";
             targetSprite = spaceSprite;

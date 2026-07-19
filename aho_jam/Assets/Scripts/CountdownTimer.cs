@@ -143,7 +143,8 @@ public class CountdownTimer : MonoBehaviour
         // ホイッスル音
         if (audioSource != null && endWhistle != null)
         {
-            audioSource.PlayOneShot(endWhistle);
+            audioSource.PlayOneShot(endWhistle, 0.5f);
+
         }
 
         // 終了エフェクトの生成 or 有効化
