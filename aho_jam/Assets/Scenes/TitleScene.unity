@@ -875,7 +875,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EXIT
+  m_text: "\u30AA\u30C7\u30B0\u30C1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ebb551e3a2cd1a749af4f4e00a2ceee1, type: 2}
   m_sharedMaterial: {fileID: -4862716489518192924, guid: ebb551e3a2cd1a749af4f4e00a2ceee1, type: 2}
@@ -1197,16 +1197,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5552223520431948428, guid: b0e51bbcb373d9d43ae1c0c58026780b, type: 3}
+      propertyPath: loopBGM
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5552223520431948428, guid: b0e51bbcb373d9d43ae1c0c58026780b, type: 3}
       propertyPath: bgmSource
       value: 
       objectReference: {fileID: 784437121}
     - target: {fileID: 5552223520431948428, guid: b0e51bbcb373d9d43ae1c0c58026780b, type: 3}
       propertyPath: fadeInTime
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5552223520431948428, guid: b0e51bbcb373d9d43ae1c0c58026780b, type: 3}
       propertyPath: fadeOutTime
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5552223520431948428, guid: b0e51bbcb373d9d43ae1c0c58026780b, type: 3}
       propertyPath: fadeOutStartTime
