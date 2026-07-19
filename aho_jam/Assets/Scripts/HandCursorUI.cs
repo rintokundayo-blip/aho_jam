@@ -10,10 +10,10 @@ public class HandCursorUI : MonoBehaviour
 
     void Start()
     {
-        // 親階層からCanvasを取得
+        // 親からCanvasを取得
         canvas = GetComponentInParent<Canvas>();
 
-        // Canvasが存在するなら、そのworldCameraを取得
+        // CanvasからUICameraを取得
         if (canvas != null)
         {
             canvasCamera = canvas.worldCamera;  
@@ -36,7 +36,7 @@ public class HandCursorUI : MonoBehaviour
         {
             Vector2 localPos;
 
-            // スクリーン座標 → 親RectTransform内のローカル座標へ変換
+            // スクリーン座標 を親RectTransform内のローカル座標へ変換
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 parentRect,
                 mousePos,
