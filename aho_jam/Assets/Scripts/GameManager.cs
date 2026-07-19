@@ -2,7 +2,7 @@
 
 public class GameManager : MonoBehaviour
 {
-    // 説明パネル（ゲーム開始前に表示するやつ）
+    // 説明
     public GameObject explanationPanel;
 
     // カウントダウンを管理するスクリプト
