@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6ae184666886e3b44b778088541a621d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - crystalGlow: {fileID: 5201662202140850289, guid: 696b8711c91615f46b585bcbd8f6e276, type: 3}
+  - rubEffect: {fileID: 140766327484803514, guid: 011b89cccfa27e941a6abb67da98b00f, type: 3}
+  - glowMat: {fileID: 2100000, guid: 8686c03d6a209f94cbf59bec7a03333a, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
