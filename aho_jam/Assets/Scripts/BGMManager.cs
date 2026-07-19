@@ -52,6 +52,7 @@ public class BGMManager : MonoBehaviour
 
         // 音量0のまま再生開始
         bgmSource.Play();
+        Debug.Log("再生しました");
 
         // duration秒かけて音量を上げる
         for (float t = 0; t < duration; t += Time.deltaTime)
