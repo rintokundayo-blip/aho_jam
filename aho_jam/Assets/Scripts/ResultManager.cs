@@ -5,66 +5,63 @@ using TMPro;
 public class ResultManager : MonoBehaviour
 {
     [Header("UI Display References")]
-    [SerializeField] private Image resultImageUI;          // UI Image component to display the result image
-    [SerializeField] private SpriteRenderer resultSpriteWorld; // Optional SpriteRenderer (if using 2D Sprite instead of UI)
-    [SerializeField] private TMP_Text rankText;             // Text component to display the rank name (e.g. 蟲ｶ蝗ｽ邏・
-    [SerializeField] private TMP_Text scoreText;            // Text component to display the total rub count
+    [SerializeField] private Image resultImageUI;          // UI Image
+    [SerializeField] private SpriteRenderer resultSpriteWorld; // SpriteRenderer (if 2D Sprite)
+    [SerializeField] private TMP_Text rankText;             // Rank Name Text
+    [SerializeField] private TMP_Text scoreText;            // Rub Count Text
 
     [Header("Result Sprites (Assign in Inspector)")]
-    [SerializeField] private Sprite islandSprite;   // 0 ~ 15: 蟲ｶ蝗ｽ邏・(Ship)
-    [SerializeField] private Sprite pacificSprite;  // 16 ~ 25: 螟ｪ蟷ｳ豢狗ｴ・(Airplane)
-    [SerializeField] private Sprite arcticSprite;   // 26 ~ 30: 蛹玲･ｵ邏・(Frozen sea)
-    [SerializeField] private Sprite spaceSprite;    // 31 ~ 40: 螳・ｮ咏ｴ・(UFO)
-    [SerializeField] private Sprite godSprite;      // 41 ~ : 逾樒ｴ・(God)
+    [SerializeField] private Sprite islandSprite;   // 0 ~ 15: 島国級
+    [SerializeField] private Sprite pacificSprite;  // 16 ~ 25: 太平洋級
+    [SerializeField] private Sprite arcticSprite;   // 26 ~ 30: 北極級
+    [SerializeField] private Sprite spaceSprite;    // 31 ~ 40: 宇宙級
+    [SerializeField] private Sprite godSprite;      // 41 ~ : 神級
 
     void Start()
     {
-        // Get total rub count saved during gameplay
         int rubCount = PlayerPrefs.GetInt("RubCount", 0);
 
-        // Display score text if assigned
+        // 「SCORE: 25」の形式で表示
         if (scoreText != null)
         {
-            scoreText.text = rubCount.ToString();
+            scoreText.text = "SCORE: " + rubCount.ToString();
         }
 
-        // Determine Rank and Image based on rub count
         string rankName = "";
         Sprite targetSprite = null;
 
-        if (rubCount <= 15)
+        if (rubCount <= 30)
         {
-            rankName = "蟲ｶ蝗ｽ邏・;
+            rankName = "シマグニキュウ";
             targetSprite = islandSprite;
-        }
-        else if (rubCount <= 25)
-        {
-            rankName = "螟ｪ蟷ｳ豢狗ｴ・;
-            targetSprite = pacificSprite;
-        }
-        else if (rubCount <= 30)
-        {
-            rankName = "蛹玲･ｵ邏・;
-            targetSprite = arcticSprite;
         }
         else if (rubCount <= 40)
         {
-            rankName = "螳・ｮ咏ｴ・;
+            rankName = "タイヘイヨウキュウ";
+            targetSprite = pacificSprite;
+        }
+        else if (rubCount <= 60)
+        {
+            rankName = "ホッキョクキュウ";
+            targetSprite = arcticSprite;
+        }
+        else if (rubCount <= 70)
+        {
+            rankName = "ウチュウキュウ";
             targetSprite = spaceSprite;
         }
         else
         {
-            rankName = "逾樒ｴ・;
+            rankName = "ゴッドキュウ";
             targetSprite = godSprite;
         }
 
-        // Update Rank Text
+        // 「RANK: 島国級」の形式で表示
         if (rankText != null)
         {
-            rankText.text = rankName;
+            rankText.text = "RANK: " + rankName;
         }
 
-        // Apply Target Sprite to UI Image or SpriteRenderer
         if (targetSprite != null)
         {
             if (resultImageUI != null)

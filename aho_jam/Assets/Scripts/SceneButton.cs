@@ -1,55 +1,61 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
 public class SceneButton : MonoBehaviour
 {
-    // ƒCƒ“ƒXƒyƒNƒ^[‚ÅƒV[ƒ“w’è
-    public SceneAsset targetScene;
+    [SerializeField] private string targetSceneName; // ã‚·ãƒ¼ãƒ³åã‚’ç›´æ¥æŒ‡å®šï¼ˆãƒ“ãƒ«ãƒ‰å¯¾å¿œï¼‰
 
-    public AudioSource audioSource; // SE‚ğ–Â‚ç‚·AudioSource
-    public AudioClip clickSound;    // Ä¶‚·‚é‰¹
+    [SerializeField] private AudioSource audioSource; // SEã‚’é³´ã‚‰ã™AudioSource
+    [SerializeField] private AudioClip clickSound;    // å†ç”Ÿã™ã‚‹éŸ³
 
-    // ƒV[ƒ“ˆÚ“®‚µ‚È‚¢ƒ{ƒ^ƒ“
+    // ã‚·ãƒ¼ãƒ³ç§»å‹•ã—ãªã„ãƒœã‚¿ãƒ³
     public void PlaySEOnly()
     {
-        audioSource.PlayOneShot(clickSound);
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
     }
 
-    // ƒV[ƒ“ˆÚ“®‚·‚éƒ{ƒ^ƒ“
+    // ã‚·ãƒ¼ãƒ³ç§»å‹•ã™ã‚‹ãƒœã‚¿ãƒ³
     public void LoadTargetScene()
     {
-        audioSource.PlayOneShot(clickSound);
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
+
         StartCoroutine(LoadSceneCoroutine());
     }
 
-    IEnumerator LoadSceneCoroutine()
+    private IEnumerator LoadSceneCoroutine()
     {
-        yield return new WaitForSeconds(clickSound.length);
-        string sceneName = targetScene.name;
+        if (clickSound)
+            yield return new WaitForSeconds(clickSound.length);
 
-        // ƒV[ƒ“‘JˆÚ
-        SceneManager.LoadScene(sceneName);
+        // ã‚·ãƒ¼ãƒ³é·ç§»
+        if (!string.IsNullOrEmpty(targetSceneName))
+            SceneManager.LoadScene(targetSceneName);
+        else
+            Debug.LogWarning("Scene name is not set in SceneButton.");
     }
 
-    //EXITƒ{ƒ^ƒ“
+    // EXITãƒœã‚¿ãƒ³
     public void ExitGame()
     {
-        audioSource.PlayOneShot(clickSound);
+        if (audioSource && clickSound)
+            audioSource.PlayOneShot(clickSound);
+
         StartCoroutine(QuitGameCoroutine());
     }
 
-    IEnumerator QuitGameCoroutine()
+    private IEnumerator QuitGameCoroutine()
     {
-        yield return new WaitForSeconds(clickSound.length);
+        if (clickSound)
+            yield return new WaitForSeconds(clickSound.length);
+
 #if UNITY_EDITOR
-        //Unity‚È‚çƒvƒŒƒC‚ğ~‚ß‚é
-        EditorApplication.isPlaying = false;
+        // Unityã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼ãªã‚‰ãƒ—ãƒ¬ã‚¤ã‚’æ­¢ã‚ã‚‹
+        UnityEditor.EditorApplication.isPlaying = false;
 #else
+        // ãƒ“ãƒ«ãƒ‰å¾Œã¯ã‚¢ãƒ—ãƒªã‚’çµ‚äº†
         Application.Quit();
 #endif
     }
