@@ -39,7 +39,7 @@ public class BGMManager : MonoBehaviour
             // フェードアウト開始地点まで待つ
             yield return new WaitForSeconds(fadeOutStartTime);
 
-            // フェードアウト（fadeOutTime秒）
+            // フェードアウト
             yield return FadeOutCoroutine(fadeOutTime);
         }
     }
